@@ -1,7 +1,7 @@
 generate "backend" {
-    path = "s3-backend.tf"
-    if_exists = "overwrite_terragrunt"
-    contents = <<EOF
+  path      = "s3-backend.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = <<EOF
 terraform {
     backend "s3" {
         bucket  = "terraform-statefiles-aws-vpc"

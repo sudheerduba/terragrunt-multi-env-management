@@ -1,13 +1,29 @@
 terraform {
-    source = "git::git@github.com:sudheerduba/aws-vpc-network-terraform.git//modules/vpc?ref=v1.1.0"
+  source = "git::git@github.com:sudheerduba/aws-vpc-network-terraform.git//modules?ref=v1.2.0"
 }
 
-include "root" {
-    path = find_in_parent_folders()
+include "remote_state" {
+  path = find_in_parent_folders()
+}
+
+locals {
+  region = "ap-south-1"
 }
 
 inputs = {
-    region_name = "ap-south-1"
-    public_az = ["ap-south-1a", "ap-south-1b"]
-    private_az = ["ap-south-1a", "ap-south-1b"]
+  environment      = "Developement"
+  eks_cluster_name = "Dev-EKS-Demo"
+  node_group_name  = "webapp-dev-01"
+  node_role_name   = "NodeRole-dev"
+  cluster_role     = "AWSEKSClusterRole-dev"
+  region_name      = local.region
+  vpc_cidr_block   = "10.10.0.0/16"
+  public_subnets = {
+    "${local.region}a" = "10.10.0.0/24"
+    "${local.region}b" = "10.10.2.0/24"
+  }
+  private_subnets = {
+    "${local.region}a" = "10.10.1.0/24"
+    "${local.region}b" = "10.10.3.0/24"
+  }
 }
