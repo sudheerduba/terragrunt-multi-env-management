@@ -7,17 +7,18 @@ include "remote_state" {
 }
 
 locals {
-  region = "us-east-2"
+  region = "us-east-1"
 }
 
 inputs = {
-  environment      = "Staging"
-  eks_cluster_name = "Stage-EKS-Demo"
-  node_group_name  = "webapp-stage-01"
-  node_role_name   = "NodeRole-stage"
-  cluster_role     = "AWSEKSClusterRole-stage"
-  region_name      = local.region
-  vpc_cidr_block   = "10.20.0.0/16"
+  environment       = "Staging"
+  eks_cluster_name  = "Stage-EKS-Demo"
+  node_group_name   = "webapp-stage-01"
+  node_role_name    = "NodeRole-stage"
+  nodegroup_keypair = "webapp-dev-01-key"
+  cluster_role      = "AWSEKSClusterRole-stage"
+  region_name       = local.region
+  vpc_cidr_block    = "10.20.0.0/16"
   public_subnets = {
     "${local.region}a" = "10.20.0.0/24"
     "${local.region}b" = "10.20.2.0/24"
